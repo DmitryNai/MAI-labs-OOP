@@ -1,10 +1,38 @@
 cmake_minimum_required(VERSION 3.10)
-project(mai_oop_labs)
+project(MyLabs)
 
-add_subdirectory(labs/lab1)
-add_subdirectory(labs/lab2)
-add_subdirectory(labs/lab3)
-add_subdirectory(labs/lab4)
-add_subdirectory(labs/lab5)
-add_subdirectory(labs/lab6)
-add_subdirectory(labs/lab7)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=maybe-uninitialized")
+
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG v1.15.2
+  TLS_VERIFY false
+)
+
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+if(DEFINED ENV{GITHUB_HEAD_REF})
+  set(BRANCH_NAME $ENV{GITHUB_HEAD_REF})
+else()
+  set(BRANCH_NAME "lab1") 
+endif()
+
+if(EXISTS "labs/${BRANCH_NAME}")
+  add_library(${BRANCH_NAME}_lib STATIC labs/${BRANCH_NAME}/include/solution.cpp)
+
+  add_executable(${BRANCH_NAME}_exe labs/${BRANCH_NAME}/src/main.cpp)
+  add_executable(${BRANCH_NAME}_tests labs/${BRANCH_NAME}/tests/unit.cpp)
+
+  target_link_libraries(${BRANCH_NAME}_exe PRIVATE ${BRANCH_NAME}_lib)
+  target_link_libraries(${BRANCH_NAME}_tests PRIVATE gtest_main ${BRANCH_NAME}_lib)
+
+  enable_testing()
+  add_test(NAME AllTests COMMAND ${BRANCH_NAME}_tests)
+else()
+  message(FATAL_ERROR "Error")
+endif()
