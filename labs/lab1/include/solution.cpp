@@ -5,7 +5,6 @@
 bool isPalindrom(const std::string& word) {
     int left = 0;
     int right = word.length() - 1;
-
     while (left < right) {
         while (left < right && !isalnum(word[left])) {
             ++left;

@@ -2,6 +2,7 @@
 #include "gtest/gtest.h"
 #include "../include/solution.h"
 
+
 TEST(isPalindromTest1, Test1) {
    std::string input = "Abaaba";
    EXPECT_EQ(isPalindrom(input), true);
