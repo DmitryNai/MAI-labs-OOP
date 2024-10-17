@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "../include/solution.h"
 
+
 TEST(FigureTest, PentagonProperties) {
     Pentagon pentagon(3.0);
     EXPECT_EQ(pentagon.GeometricCenter(), std::make_pair(0.0, 0.0));
