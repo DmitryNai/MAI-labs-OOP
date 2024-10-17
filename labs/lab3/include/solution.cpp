@@ -1,6 +1,5 @@
 #include "solution.h"
 
-
 constexpr RegularPolygon::RegularPolygon(int sides, double radius, std::pair<double, double> center)
     : sides(sides), radius(radius), center(center) {}
 

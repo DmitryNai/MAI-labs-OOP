@@ -2,7 +2,6 @@
 #include <cmath>
 #include <utility>
 
-
 class Figure {
 public:
     virtual ~Figure() = default;

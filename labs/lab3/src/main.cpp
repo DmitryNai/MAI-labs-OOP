@@ -3,7 +3,6 @@
 #include <memory>
 #include "../include/solution.h"
 
-
 int main() {
     std::vector<std::shared_ptr<Figure>> figures;
     
